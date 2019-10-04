@@ -1,54 +1,52 @@
 # get data
-
+library(jsonlite)
 population <- setRefClass(Class = "population", 
                           fields = list(
+                            kpi_metadata = "list",
+                            municipality_metadata = "list",
                             municipality = "character",
-                            year = "vector",
-                            pop_list = "list",
-                            summary = "data.frame",
-                            growth_rate = "numeric",
-                            municipalities_list = "character"
+                            municipality_data = "data.frame",
+                            municipality_name = "character"
                           ),
                           
                           methods = list(
-                            initialize = function(municipality, year){
-                              municipality <<- municipality
-                              year <<- year
-                              year_char = paste(year, collapse = ",")
+                            initialize = function(){
                               
+                              # metadata of dataset
+                              kpi_metadata <<- fromJSON("http://api.kolada.se/v2/kpi")
+                              municipality_metadata <<- fromJSON("http://api.kolada.se/v2/municipality")
                               
-                              # fetch the data
-                              kolada_api_kpi = fromJSON("http://api.kolada.se/v2/kpi")
-                              kolada_api_municipality = fromJSON("http://api.kolada.se/v2/municipality")
+                              # id of total inhabitant data
+                              kpi_id = paste(kpi_metadata$values$id[428], collapse = ",")
                               
-                              
-                              # list of municipalities
-                              municipalities_list <<- kolada_api_municipality$values$title
-                              
-                              
-                              # id of dataset and municipalities
-                              kpi_id = paste(kolada_api_kpi$values$id[428], collapse = ",")
-                              municipality_id = kolada_api_municipality$values$id[kolada_api_municipality$values$title == municipality]
-                              pop_url = paste("http://api.kolada.se/v2/data/kpi/", kpi_id, "/municipality/", municipality_id, "/year/", year_char, sep = "")
-                              pop_list <<- fromJSON(pop_url)
-                              
-                              pop_matrix = c()
-                              for (i in (1:length(year))){
-                                pop_row = c(year[i], pop_list$values$values[[i]]$value[1], pop_list$values$values[[i]]$value[2], pop_list$values$values[[i]]$value[3])
-                                pop_matrix = rbind(pop_matrix, pop_row)
-                              }
-                              
-                              rownames(pop_matrix) = NULL
-                              colnames(pop_matrix) = c("Year", "Female", "Male", "Total")
-                              summary <<- as.data.frame(pop_matrix)
                               
                             },
                             
                             municipalities = function(){
-                              return(municipalities_list)
+                              return(as.vector(municipality_metadata$values$title))
+                            },
+                            
+                            # select only population data of a certain municipality
+                            population_data = function(municipality_name){
+                              municipality_id = municipality_metadata$values$id[municipality_metadata$values$title == municipality_name]
+                              data_url = paste("http://api.kolada.se/v2/data/kpi/N01951", "/municipality/", municipality_id, sep = "")
+                              
+                              df = fromJSON(data_url)
+                              
+                              period = df$values$period
+                              pop = c()
+                              for (i in 1:length(period)){
+                                pop = c(pop, df$values$values[[i]]$value[3])
+                              }
+                              
+                              municipality_data <<- as.data.frame(cbind(period, pop))
+                              
+                              
+                              return(municipality_data)
                             }
+                            
                           ))
 
 
-pop1 = population$new("Stockholm", 1998:2018)
-pop1$summary
+pop1 = population$new()
+stockholm_data = pop1$population_data("Stockholm")
