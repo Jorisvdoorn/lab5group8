@@ -46,7 +46,3 @@ population <- setRefClass(Class = "population",
                             }
                             
                           ))
-
-
-pop1 = population$new()
-stockholm_data = pop1$population_data("Stockholm")
