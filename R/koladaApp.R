@@ -43,7 +43,7 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output) {
   dat <- reactive({
-    temp <- as.data.frame(kolada$population_data(input$municip_choice)[input$range[1]:input$range[2],])
+    temp <- as.data.frame(kolada$population_data(input$municip_choice)[(input$range[1]-1969):(input$range[2]-1969),])
     print(input$municip_choice)
     typeof(temp)
     print(temp)
