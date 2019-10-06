@@ -1,0 +1,39 @@
+---
+title: "population"
+author: "Brahmantio, B. B. & van Doorn, J."
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{population}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ggplot2)
+library(shiny)
+library(jsonlite)
+library(lab5group8)
+```
+
+# Using the population package
+## Introduction
+This package is an excercise in building a package, working with web-API's, and creating an app using Shiny. Specifically, this package contains two functions `r population$new()` and `r shinyApp(ui = ui, server = server)`.
+
+## population
+You can create an object of the class *population* with the following command:
+
+```{r}
+popul <- population$new()
+```
+It has two methods:
+`r popul$municipalities` returns a list of all municipalities in the dataset.
+`r popul$population_data("Stockholm")` returns a dataframe with the year and the population size in that year for a specified municipality. In this case Stockholm.
+

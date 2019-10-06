@@ -1,4 +1,16 @@
-# get data
+#' Linear Regression
+#' 
+#' Running a Linear Multiple Reregression Model.
+#' 
+#' This function does not take any parameters but instead gets its data from the Kolada web-api.
+#' 
+#' @return Returns an object of the class 'population'. This object can be manipulated.
+#' 
+#' @import methods
+#' @import jsonlite
+#' 
+#' @export population
+#' @exportClass population
 library(jsonlite)
 population <- setRefClass(Class = "population", 
                           fields = list(

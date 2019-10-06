@@ -1,9 +1,19 @@
 Package: lab5group8
 Type: Package
-Title: What the package does (short line)
+Title: This package connects to the Kolada web-api and shows the data in an app
 Version: 1.0
-Date: 2019-09-30
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Date: 2019-10-06
+Author: c(person("Bayu Beta", "Brahmantio", email = "bayubrahmantio@gmail.com", role = c("aut", "cre")), person("Joris", "van Doorn", email = "jorva845@student.liu.se", role = "aut"))
+Maintainer: Bayu Beta Brahmantio, <bayubrahmantio@gmail.com>
+Description: The app shows bargraphs of the population of swedish municipalities over time. It allows the user to select the muncicipality and the time-window.
+License: CC0
+RoxygenNote: 6.1.1
+Imports:
+    ggplot2,
+    jsonlite,
+    shiny
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -1,5 +1,6 @@
 library(shiny)
 library(ggplot2)
+library(lab5group8)
 
 # object of the RC-class 'population' based on the package of lab5group8 that connects to the kolada-api
 kolada <- population$new()
@@ -42,16 +43,15 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
+  # reactively updates the dataframe based on the users choice of municipality and range in years
   dat <- reactive({
     temp <- as.data.frame(kolada$population_data(input$municip_choice)[(input$range[1]-1969):(input$range[2]-1969),])
-    print(input$municip_choice)
-    typeof(temp)
-    print(temp)
     temp
   })
   
+  # generates a bargraph of the chosen municipality plus range
   output$plot <- renderPlot({
-    ggplot(dat(), aes(x=period,y=pop))+geom_bar(stat="identity")},height = 400,width = 600)
+    ggplot(dat(), aes(x=period,y=pop))+geom_bar(stat="identity")+labs(x="Years",y="Population")+ggtitle("The population over Time")},height = 400,width = 600)
   }
 
 # Run the app
