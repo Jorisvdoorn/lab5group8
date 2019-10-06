@@ -1,22 +1,18 @@
-#' Linear Regression
+#' Population
 #' 
-#' Running a Linear Multiple Reregression Model.
-#' 
-#' This function does not take any parameters but instead gets its data from the Kolada web-api.
+#' Create an object containing population data of swedish municipalities. This function does not take any parameters but instead gets its data from the Kolada web-api.
 #' 
 #' @return Returns an object of the class 'population'. This object can be manipulated.
 #' 
-#' @import methods
-#' @import jsonlite
 #' 
 #' @export population
 #' @exportClass population
-library(jsonlite)
+
+
 population <- setRefClass(Class = "population", 
                           fields = list(
                             kpi_metadata = "list",
                             municipality_metadata = "list",
-                            municipality = "character",
                             municipality_data = "data.frame",
                             municipality_name = "character"
                           ),
@@ -30,7 +26,6 @@ population <- setRefClass(Class = "population",
                               
                               # id of total inhabitant data
                               kpi_id = paste(kpi_metadata$values$id[428], collapse = ",")
-                              
                               
                             },
                             
@@ -52,9 +47,8 @@ population <- setRefClass(Class = "population",
                               }
                               
                               municipality_data <<- as.data.frame(cbind(period, pop))
-                              
-                              
                               return(municipality_data)
+                              
                             }
                             
                           ))

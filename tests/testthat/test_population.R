@@ -1,7 +1,7 @@
 context("population")
 
 test_that("population rejects errounous input", {
-  expect_error(population_mod <- population$new())
+  expect_error(population_mod <- population$new("Municipality"))
 })
 
 test_that("class is correct", {

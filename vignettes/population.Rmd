@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{population}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -17,9 +17,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(ggplot2)
-library(shiny)
 library(jsonlite)
+library(shiny)
 library(lab5group8)
 ```
 

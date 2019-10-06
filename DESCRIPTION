@@ -7,11 +7,13 @@ Author: c(person("Bayu Beta", "Brahmantio", email = "bayubrahmantio@gmail.com", 
 Maintainer: Bayu Beta Brahmantio, <bayubrahmantio@gmail.com>
 Description: The app shows bargraphs of the population of swedish municipalities over time. It allows the user to select the muncicipality and the time-window.
 License: CC0
+Encoding: UTF-8
 RoxygenNote: 6.1.1
 Imports:
     ggplot2,
     jsonlite,
-    shiny
+    shiny,
+    curl
 Suggests: 
     testthat,
     knitr,

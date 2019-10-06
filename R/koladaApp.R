@@ -1,6 +1,6 @@
+library(jsonlite)
 library(shiny)
-library(ggplot2)
-library(lab5group8)
+source("R/population.R")
 
 # object of the RC-class 'population' based on the package of lab5group8 that connects to the kolada-api
 kolada <- population$new()
