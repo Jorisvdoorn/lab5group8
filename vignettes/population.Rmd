@@ -5,8 +5,8 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{population}
-  %\VignetteEngine{rmarkdown::render}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r, include = FALSE}
@@ -24,7 +24,7 @@ library(lab5group8)
 
 # Using the population package
 ## Introduction
-This package is an excercise in building a package, working with web-API's, and creating an app using Shiny. Specifically, this package contains two functions `r population$new()` and `r shinyApp(ui = ui, server = server)`.
+This package is an excercise in building a package, working with web-API's, and creating an app using Shiny. Specifically, this package contains two functions `population.R` and `app.R`.
 
 ## population
 You can create an object of the class *population* with the following command:
@@ -33,6 +33,19 @@ You can create an object of the class *population* with the following command:
 popul <- population$new()
 ```
 It has two methods:
-`r popul$municipalities` returns a list of all municipalities in the dataset.
-`r popul$population_data("Stockholm")` returns a dataframe with the year and the population size in that year for a specified municipality. In this case Stockholm.
+```{r}
+popul$municipalities()
+```
+returns a list of all municipalities in the dataset.
+
+
+```{r}
+popul$population_data("Stockholm")
+```
+returns a dataframe with the year and the population size in that year for a specified municipality. In this case Stockholm.
+
+
+## app
+You can run the shiny app by running this command:
+`runGitHub("Jorisvdoorn/lab5group8", "<your github username>", subdir = "R/")`
 
